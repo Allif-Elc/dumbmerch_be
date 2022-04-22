@@ -5,7 +5,14 @@ const router = express.Router();
 
 //controllers
 const { register, login, checkAuth } = require("../controllers/auth");
-const { addProfile,getProfile, updateUser} = require("../controllers/users");
+const { addProfile,
+        getProfile,
+        updateProfile,
+        addUsers,
+        getUsers,
+        getUser,
+        updateUser,
+        deleteUser,} = require("../controllers/users");
 const { searchProduct,
         getProduct,
         getProducts,
@@ -28,6 +35,13 @@ const { uploadFiles } = require("../middleware/uploadFiles");
 
 
 //routes
+// Route
+router.post('/user', addUsers);
+router.get('/users', getUsers);
+router.get('/user/:id', getUser);
+router.delete('/user/:id', updateUser);
+router.delete('/user/:id', deleteUser);
+
 router.post('/login', login);
 router.post('/register', register);
 router.get ('/check-auth',auth, checkAuth);
@@ -54,6 +68,6 @@ router.post('/chat', auth,addChat);
 
 router.get('/profile',auth,getProfile);
 router.post('/profile',auth,addProfile);
-router.patch('/profile',auth,uploadFiles("photo"),updateUser);
+router.patch('/profile',auth,uploadFiles("photo"),updateProfile);
 
 module.exports = router;
